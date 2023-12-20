@@ -1,5 +1,6 @@
 package com.codinggrecipe.member.entity;
 
+import com.codinggrecipe.member.dto.MemberDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,4 +23,12 @@ public class MemberEntity {
 
     @Column
     private String memberName;
+
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        MemberEntity memberEntity = new MemberEntity(); // 객체 생성 - 담아서 - setter(getter)
+        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
+        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
+        memberEntity.setMemberName(memberDTO.getMemberName());
+        return memberEntity;
+    }
 }

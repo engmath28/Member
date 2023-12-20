@@ -3,8 +3,11 @@ package com.codinggrecipe.member.controller;
 import com.codinggrecipe.member.dto.MemberDTO;
 import com.codinggrecipe.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -24,12 +27,26 @@ public class MemberController {
         System.out.println("MemberController.save");
         System.out.println("memberDto = " + memberDto);
         memberService.save(memberDto);
-        return "index";
+        return "login";
     }
 
     @GetMapping("/member/login")
-    public String login() {
+    public String loginForm() {
         return "login";
+    }
+
+    @PostMapping("/member/login")
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpSession session) {
+        MemberDTO loginResult = memberService.login(memberDTO);
+        if (loginResult != null) {
+            // Login 성공
+            session.setAttribute("loginEmail", loginResult.getMemberEmail());
+            return "main";
+        }else {
+            // Login 실패
+            return "login";
+        }
+
     }
 
 }
