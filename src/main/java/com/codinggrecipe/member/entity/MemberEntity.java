@@ -31,4 +31,6 @@ public class MemberEntity {
         memberEntity.setMemberName(memberDTO.getMemberName());
         return memberEntity;
     }
+
+    
 }

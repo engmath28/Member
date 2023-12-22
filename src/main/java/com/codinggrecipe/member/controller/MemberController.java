@@ -5,9 +5,11 @@ import com.codinggrecipe.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @Controller
@@ -46,7 +48,14 @@ public class MemberController {
             // Login 실패
             return "login";
         }
-
     }
+
+    @GetMapping("/member/")
+    public String findAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList", memberDTOList);
+        return "list";
+    }
+
 
 }
