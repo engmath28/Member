@@ -89,4 +89,12 @@ public class MemberController {
         session.invalidate(); // session 무효화
         return "index";
     }
+
+    @PostMapping("/member/email-check")
+    public @ResponseBody String emailCheck(@RequestParam("memberEmail") String memberEmail) {
+        System.out.println("memberEmail = " + memberEmail);
+        return memberService.emailCheck(memberEmail);
+
+    }
+
 }
